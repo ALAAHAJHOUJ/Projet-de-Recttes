@@ -1,18 +1,23 @@
 package com.example.demo.Controller;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.demo.FormatRecette.FormatRecette;
+import com.example.demo.Repository.RecetteRepo;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 
 public class ControllerRecette {
 
 
-    @GetMapping("/tester1/{id}")
-    public String tester(@PathVariable int id){
-        System.out.println("hey hajhouj");
-        return id+"";
+    @Autowired
+    private RecetteRepo recetteRepo;
+
+    @PostMapping("/api/recettes")
+    public String tester(@RequestBody @Valid FormatRecette recette1){
+       System.out.println("okkk");
+       return "string";
     }
 }

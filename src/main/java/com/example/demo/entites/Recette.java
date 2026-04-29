@@ -30,7 +30,7 @@ public class Recette {
     private int Temps;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false,updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
