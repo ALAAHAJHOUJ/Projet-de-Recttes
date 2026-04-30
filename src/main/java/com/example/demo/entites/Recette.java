@@ -27,7 +27,7 @@ public class Recette {
     private String link_Img;
 
     @Column(nullable = false)
-    private int Temps;
+    private int TempsMinutes;
 
     @CreationTimestamp
     @Column(nullable = false,updatable = false)
@@ -37,7 +37,7 @@ public class Recette {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "recette")
+    @OneToMany(mappedBy = "recette",cascade =CascadeType.ALL)
     private List<Ingredient> Ingredients;
 
 
@@ -74,12 +74,12 @@ public class Recette {
         this.link_Img = link_Img;
     }
 
-    public int getTemps() {
-        return Temps;
+    public int getTempsMinutes() {
+        return TempsMinutes;
     }
 
-    public void setTemps(int temps) {
-        Temps = temps;
+    public void setTempsMinutes(int tempsMinutes) {
+        TempsMinutes = tempsMinutes;
     }
 
     public LocalDateTime getCreatedAt() {

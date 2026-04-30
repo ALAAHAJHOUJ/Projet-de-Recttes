@@ -19,7 +19,7 @@ public class FormatRecette {
     private String link_Img;
 
     @NotNull
-    private int tempsMinutes;
+    private Integer tempsMinutes;
 
     @NotNull
     @NotEmpty

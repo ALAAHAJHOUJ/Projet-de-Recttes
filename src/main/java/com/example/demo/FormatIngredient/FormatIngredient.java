@@ -7,8 +7,8 @@ public class FormatIngredient {
     @NotNull
     private String titre;
 
-    @NotNull
-    private int quanite;
+    @NotNull(message="ce champs est requis dans la demande")
+    private int quantite;
 
     public String getTitre() {
         return titre;
@@ -19,10 +19,10 @@ public class FormatIngredient {
     }
 
     public int getQuanite() {
-        return quanite;
+        return quantite;
     }
 
-    public void setQuanite(int quanite) {
-        this.quanite = quanite;
+    public void setQuanite(int quantite) {
+        this.quantite = quantite;
     }
 }
