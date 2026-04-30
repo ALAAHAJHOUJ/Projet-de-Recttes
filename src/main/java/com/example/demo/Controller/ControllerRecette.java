@@ -2,7 +2,6 @@ package com.example.demo.Controller;
 
 
 import com.example.demo.FormatRecette.FormatRecette;
-import com.example.demo.Services.IngredientService;
 import com.example.demo.Services.RecetteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public class ControllerRecette {
     @PostMapping("/api/recettes")
     public String tester(@RequestBody @Valid FormatRecette recette1){
 
-        System.out.println(recette1.getListIngredient().get(0).getQuanite());
+        System.out.println(recette1.getListIngredient().get(0).isTester());
         recetteService.enregistrerRecette(recette1);
         return "string";
     }

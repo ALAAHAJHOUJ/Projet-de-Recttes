@@ -26,7 +26,7 @@ public class RecetteService {
 
         List<Ingredient> ingredient1=recette.getListIngredient().stream().map(iDto -> {
                     Ingredient i = new Ingredient();
-                    i.setQuantite(iDto.getQuanite());
+                    i.setQuantite(iDto.getQuantite());
                     i.setNom(iDto.getTitre());
                     i.setRecette(r1);
                     return i;

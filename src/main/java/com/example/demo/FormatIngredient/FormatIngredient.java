@@ -1,5 +1,6 @@
 package com.example.demo.FormatIngredient;
 
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 
 public class FormatIngredient {
@@ -8,7 +9,10 @@ public class FormatIngredient {
     private String titre;
 
     @NotNull(message="ce champs est requis dans la demande")
-    private int quantite;
+    private Integer quantite;
+
+    @AssertTrue(message="cet expression doit etre vrai")
+    private boolean tester;
 
     public String getTitre() {
         return titre;
@@ -18,11 +22,19 @@ public class FormatIngredient {
         this.titre = titre;
     }
 
-    public int getQuanite() {
+    public Integer getQuantite() {
         return quantite;
     }
 
-    public void setQuanite(int quantite) {
+    public void setQuantite(Integer quantite) {
         this.quantite = quantite;
+    }
+
+    public boolean isTester() {
+        return tester;
+    }
+
+    public void setTester(boolean tester) {
+        this.tester = tester;
     }
 }
