@@ -71,7 +71,7 @@ public class RecetteService {
             //d'abord on supprime tous les recettes
             for(Ingredient r:r1.getIngredients()){
                 String titreIngr=r.getNom();
-                ingredientService.supprimerIngredient(titreIngr);
+                ingredientService.supprimerIngredient(titreIngr,id);
             }
 
             //ajouter Les roucettes envoyés dans la demande
@@ -86,6 +86,8 @@ public class RecetteService {
         }
 
         recetteRepo.save(r1);
+
+
 
         return "succes";
     }

@@ -11,8 +11,8 @@ public class IngredientService {
     @Autowired
     private ingredientRepo ingredientRepo;
 
-    public void supprimerIngredient(String titre){
-        ingredientRepo.deleteByNom(titre);
+    public void supprimerIngredient(String titre,int id){
+        ingredientRepo.deleteByNomAndRecetteId(titre,id);
     }
 
 }
