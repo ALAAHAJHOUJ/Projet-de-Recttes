@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RecetteRepo extends JpaRepository<Recette,Integer> {
 
+    public Recette findByTitre(String titre);
 }

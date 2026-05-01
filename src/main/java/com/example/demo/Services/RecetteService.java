@@ -24,7 +24,7 @@ public class RecetteService {
     private IngredientService ingredientService;
 
 
-    public String enregistrerRecette(FormatRecette recette){
+    public FormatRecette enregistrerRecette(FormatRecette recette){
         Recette r1=new Recette();
         BeanUtils.copyProperties(recette,r1);
 
@@ -38,12 +38,28 @@ public class RecetteService {
                 .toList();
 
         r1.setIngredients(ingredient1);
-        System.out.println(r1.getIngredients().get(0).getNom()+r1.getIngredients().get(0).getQuantite());
 
-        recetteRepo.save(r1);
+        Recette r3=recetteRepo.save(r1);
 
-        return "verified";
+        FormatRecette r2=new FormatRecette();
+
+        BeanUtils.copyProperties(r1,r2);
+
+
+        List<FormatIngredient> liste1=new LinkedList<>();
+        for(Ingredient d:r3.getIngredients()){
+            FormatIngredient forme=new FormatIngredient();
+            forme.setNom(d.getNom());
+            forme.setQuantite(d.getQuantite());
+            liste1.add(forme);
+        }
+        r2.setListIngredient(liste1);
+
+        return r2;
+
     }
+
+
 
 
 
@@ -94,6 +110,8 @@ public class RecetteService {
 
 
 
+
+
     public String  SupprimerRecette(int id){
         Recette r1=recetteRepo.findById(id).orElseThrow(()->new RuntimeException("recette inexistante"));
 
@@ -103,10 +121,32 @@ public class RecetteService {
 
 
 
+
+
     public FormatRecette chercher(int id){
         Recette r1=recetteRepo.findById(id).orElseThrow(()->new RuntimeException("recette introuvable"));
         FormatRecette format=new FormatRecette();
         BeanUtils.copyProperties(r1,format);
         return format;
+    }
+
+
+
+    public boolean existe(int id){
+        if(recetteRepo.findById(id)!=null){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
+
+    public boolean existeparTitre(String nom){
+        if(recetteRepo.findByTitre(nom)!=null){
+            return true;
+        }else {
+            return false;
+        }
     }
 }
