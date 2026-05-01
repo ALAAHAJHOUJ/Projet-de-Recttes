@@ -17,10 +17,32 @@ public class ControllerRecette {
 
 
     @PostMapping("/api/recettes")
-    public String tester(@RequestBody @Valid FormatRecette recette1){
+    public String AjouterRecette(@RequestBody @Valid FormatRecette recette1){
 
-        System.out.println(recette1.getListIngredient().get(0).isTester());
         recetteService.enregistrerRecette(recette1);
         return "string";
     }
+
+    @PutMapping("/api/recettes/{id}")
+    public String ModifierRecette(@PathVariable int id,@RequestBody FormatRecette recette){
+        recetteService.modifierRecette(id,recette);
+        return "modification avec succes";
+    }
+
+
+    @DeleteMapping("/api/recettes/{id}")
+    public String SupprimerRecette(@PathVariable int id){
+        recetteService.SupprimerRecette(id);
+        return "suppression avec succes";
+    }
+
+
+    @GetMapping("/api/recettes/{id}")
+    public String Consulter(@PathVariable int id){
+        FormatRecette r1=recetteService.chercher(id);
+        return "string";
+    }
+
+
+
 }

@@ -19,7 +19,7 @@ public class FormatRecette {
     private String link_Img;
 
     @NotNull
-    private Integer tempsMinutes;
+    private Integer tempsMinutes=null;
 
     @NotNull
     @NotEmpty
@@ -58,11 +58,11 @@ public class FormatRecette {
         this.link_Img = link_Img;
     }
 
-    public int getTempsMinutes() {
+    public Integer getTempsMinutes() {
         return tempsMinutes;
     }
 
-    public void setTempsMinutes(int tempsMinutes) {
+    public void setTempsMinutes(Integer tempsMinutes) {
         this.tempsMinutes = tempsMinutes;
     }
 
