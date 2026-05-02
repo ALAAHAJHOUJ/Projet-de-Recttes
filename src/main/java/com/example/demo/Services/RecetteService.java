@@ -7,10 +7,14 @@ import com.example.demo.entites.Ingredient;
 import com.example.demo.entites.Recette;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -83,6 +87,7 @@ public class RecetteService {
         }
 
         if(recette.getListIngredient()!=null){
+            System.out.println("exe");
             List<Ingredient> listIngr=new LinkedList<>();
             //d'abord on supprime tous les recettes
             for(Ingredient r:r1.getIngredients()){
@@ -113,9 +118,11 @@ public class RecetteService {
 
 
     public String  SupprimerRecette(int id){
-        Recette r1=recetteRepo.findById(id).orElseThrow(()->new RuntimeException("recette inexistante"));
+
+        Recette r1=recetteRepo.findById(id).orElseThrow(()->new RuntimeException("recette introuvable"));
 
         recetteRepo.delete(r1);
+
         return "suppression avec succes";
     }
 
@@ -127,6 +134,15 @@ public class RecetteService {
         Recette r1=recetteRepo.findById(id).orElseThrow(()->new RuntimeException("recette introuvable"));
         FormatRecette format=new FormatRecette();
         BeanUtils.copyProperties(r1,format);
+        List<FormatIngredient> list1=new LinkedList<>();
+
+        for(Ingredient ingr:r1.getIngredients()){
+            FormatIngredient forme1=new FormatIngredient();
+            BeanUtils.copyProperties(ingr,forme1);
+            list1.add(forme1);
+        }
+
+        format.setListIngredient(list1);
         return format;
     }
 
@@ -148,5 +164,14 @@ public class RecetteService {
         }else {
             return false;
         }
+    }
+
+
+    public List<Recette> RecettePagine1(int page,int size){
+        Page<Recette> page1 = recetteRepo.findAll(PageRequest.of(page,size));
+        for(Recette r1:page1.getContent()){
+            r1.getIngredients().clear();
+        }
+        return page1.getContent();
     }
 }
