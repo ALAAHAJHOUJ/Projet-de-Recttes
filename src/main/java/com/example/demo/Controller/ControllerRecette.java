@@ -2,14 +2,17 @@ package com.example.demo.Controller;
 
 
 import com.example.demo.FormatRecette.FormatRecette;
+import com.example.demo.Pagination.PagedResponse;
 import com.example.demo.Services.RecetteService;
-import com.example.demo.entites.Recette;
 import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -70,8 +73,24 @@ public class ControllerRecette {
     }
 
     @GetMapping("/pagination/")
-    public List<Recette> tester(){
-        return recetteService.RecettePagine1(1,3);
+    public ResponseEntity<PagedResponse<FormatRecette>> tester(){
+        Page<FormatRecette> Recettes1=recetteService.RecettePagine1(0,2);
+        List<FormatRecette> RecettesRespone=new LinkedList<>();
+
+        Recettes1.forEach((recette)->{
+            FormatRecette recette2=new FormatRecette();
+            BeanUtils.copyProperties(recette,recette2);
+            RecettesRespone.add(recette2);
+        });
+
+        PagedResponse<FormatRecette> PagedResponse=new PagedResponse<>(Recettes1.getTotalPages()
+                ,Recettes1.getSize()
+                ,Recettes1.getTotalElements()
+                ,Recettes1.getNumber()+1
+                ,RecettesRespone
+
+        );
+        return ResponseEntity.status(HttpStatus.OK).body(PagedResponse);
     }
 
 
