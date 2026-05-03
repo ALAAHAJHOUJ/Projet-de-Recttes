@@ -10,13 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Function;
+
 
 
 @Service
@@ -161,6 +159,7 @@ public class RecetteService {
 
 
 
+
     public boolean existeparTitre(String nom){
         if(recetteRepo.findByTitre(nom)!=null){
             return true;
@@ -168,6 +167,8 @@ public class RecetteService {
             return false;
         }
     }
+
+
 
 
     public Page<FormatRecette> RecettePagine1(int page,int size){
@@ -187,5 +188,27 @@ public class RecetteService {
         });
 
         return listRecettesPagine;
+    }
+
+
+
+    public Page<FormatRecette> chercher1(String nom){
+
+        Pageable p = PageRequest.of(0, 2);
+        Page<FormatRecette> RecettePagine=recetteRepo.search(nom,p).map((recette)->{
+            FormatRecette r1=new FormatRecette();
+            BeanUtils.copyProperties(recette,r1);
+            List<FormatIngredient> listIngredient=new LinkedList<>();
+            for(Ingredient d1:recette.getIngredients()){
+                FormatIngredient ingredient=new FormatIngredient();
+                BeanUtils.copyProperties(d1,ingredient);
+                listIngredient.add(ingredient);
+            }
+            r1.setListIngredient(listIngredient);
+            return r1;
+
+        });
+
+        return RecettePagine;
     }
 }

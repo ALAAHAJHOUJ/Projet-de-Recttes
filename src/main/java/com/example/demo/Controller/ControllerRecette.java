@@ -38,6 +38,8 @@ public class ControllerRecette {
 
 
 
+
+
     @PutMapping("/api/recettes/{id}")
     public ResponseEntity<?> ModifierRecette(@PathVariable int id,@RequestBody FormatRecette recette){
         if(recetteService.existe(id)){
@@ -48,6 +50,8 @@ public class ControllerRecette {
         }
 
     }
+
+
 
 
     @DeleteMapping("/api/recettes/{id}")
@@ -61,6 +65,8 @@ public class ControllerRecette {
     }
 
 
+
+
     @GetMapping("/api/recettes/{id}")
     public ResponseEntity<?> Consulter(@PathVariable int id){
         boolean exister=recetteService.existe(id);
@@ -71,6 +77,8 @@ public class ControllerRecette {
         FormatRecette r1=recetteService.chercher(id);
         return ResponseEntity.status(HttpStatus.OK).body(r1);
     }
+
+
 
     @GetMapping("/pagination/")
     public ResponseEntity<PagedResponse<FormatRecette>> tester(){
@@ -91,6 +99,13 @@ public class ControllerRecette {
 
         );
         return ResponseEntity.status(HttpStatus.OK).body(PagedResponse);
+    }
+
+
+
+    @GetMapping("/pagination2/")
+    public Page<FormatRecette> tester111(){
+         return recetteService.chercher1("tajin");
     }
 
 
